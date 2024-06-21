@@ -24,6 +24,12 @@ The project is built using a cutting-edge tech stack to ensure efficiency, flexi
 
 The website will have the following pages:
 
- 1. ### Home/Landing page:
+1. Home/Landing page:
         one `header` with basic `navigation-bar`, one `banner` with `h1-text` and `description`. after this we can have any number of information in the form of `carousel`, `accordion` or in the `z-pattern` or `notice board` kind.
         After that we will have a `footer` with `site-map`, `qr-code` and other important information.
+
+| Column 1 | Column 2 | Column 3 |
+|----------|----------|----------|
+| Data 1   | Data 2   | Data 3   |
+| Data 4   | Data 5   | Data 6   |
+| Data 7   | Data 8   | Data 9   |
