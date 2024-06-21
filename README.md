@@ -28,5 +28,6 @@ Site root URL = `xyz.com`
 
 | page-name                     | page-slug                              | what will be visible                      |
 |-------------------------------|----------------------------------------|-------------------------------------------|
-| home or landing page          | `/`                                    | Basic information about the website       |
+| home or landing page          | `/`                                    | Basic information about the websiteikjnbdibnqwndinxiqndiqndiqnxiqnxiqnxijqnxijanxijqanxijqnq qwijnxijqn xiqj xijq xiuq xiuq xiq ciq ciq ciq ciq cihqc iq cqih iq ciq cw bciwh cihw chi cwhc whc uhwc uhwa c       |
+| 
 
