@@ -37,9 +37,7 @@ Site root URL = `xyz.com`
 | Gallery                       | `/gallery`                             | To showcase images of something important        |
 | CMS                           | `/{cms-slug}`                          | To create a temporary or permanent CMS page      |
 | Contact us                    | `/contact-us`                          | contact form and some other contact information  |
-|-------------------------------|----------------------------------------|--------------------------------------------------|
 |                                               Admin Routes                                                                |
-|-------------------------------|----------------------------------------|--------------------------------------------------|
 | admin blog                    | `admin/blogs`                          | to view all blogs that are available             |
 | admin blog create/modify      | `admin/blogs/{blog-id}/create-modify`  | to edit or modify a single blog                  |
 | admin event                   | `admin/events`                         | to view all events that are available            |
