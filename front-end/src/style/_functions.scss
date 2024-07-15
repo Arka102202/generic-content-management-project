@@ -1,0 +1,148 @@
+/**
+ * Extracts the number from a key with a format like "color-1".
+ *
+ * @param {String} $key - The key to extract the number from.
+ * @return {String} - The extracted number with a preceding hyphen, or an empty string if no hyphen is found.
+ */
+
+@function extractNumber($key) {
+    // Find the index of the hyphen
+    $index: str-index($key, "-");
+
+    // Extract the number part after the hyphen
+    @if $index {
+        $number: str-slice($key, $index + 1);
+        @return "-#{$number}";
+    }
+
+    // Return an empty string if no hyphen is found
+    @return "";
+}
+
+/**
+ * Converts SCSS variables to CSS variables with a specified prefix.
+ *
+ * @param {Map} $scssVar - A map of SCSS variables.
+ * @param {String} $prefix - The prefix for the CSS variables.
+ * @return {Map} - A map of CSS variables with the specified prefix.
+ */
+
+@function scss2CssVariables($scssVar, $prefix) {
+    $result: ();
+
+    @each $key, $val in $scssVar {
+        $result: map-merge(
+            $result,
+            (
+                ("--#{$prefix}#{extractNumber($key)}"): $val
+            )
+        );
+    }
+
+    @return $result;
+}
+
+/**
+ * Generates CSS variables from a map.
+ *
+ * @param {Map} $cssVarMap - A map of CSS variables.
+ */
+
+@mixin generateCssVariables($cssVarMap) {
+    @each $key, $val in $cssVarMap {
+        #{$key}: $val;
+    }
+}
+
+/**
+ * Converts a map of SCSS variables into a map of class names and CSS variable references.
+ *
+ * @param {Map} $scssVar - A map of SCSS variables.
+ * @param {String} $class_prefix - The prefix for the class name.
+ * @param {String} $value_prefix - The prefix for the CSS variable name.
+ * @return {Map} - A map where keys are class names and values are CSS variable references.
+ */
+
+@function map2Class_nameDifferentFromKey($scssVar, $class_prefix, $value_prefix) {
+    $result: ();
+
+    @each $key, $val in $scssVar {
+        $suffix: extractNumber($key);
+        $className: #{$class_prefix}-#{$value_prefix}#{$suffix};
+        $valueName: #{$value_prefix}#{$suffix};
+        $result: map-merge(
+            $result,
+            (
+                "#{$className}": var(--#{$valueName})
+            )
+        );
+    }
+
+    @return $result;
+}
+
+/**
+ * Converts a map of SCSS variables into a map of class names and CSS variable references.
+ *
+ * @param {Map} $scssVar - A map of SCSS variables.
+ * @param {String} $class_prefix - The prefix for the class name.
+ *
+ * @return {Map} - A map where keys are class names and values are CSS variable references.
+ */
+
+@function map2Class_nameAsKey($scssVar, $class_prefix, $reverse: 0) {
+    $result: ();
+
+    @each $key, $val in $scssVar {
+        $className: $class_prefix;
+        $addDash: "";
+        @if ($class_prefix != "") {
+            $addDash: "-";
+        }
+        @if ($reverse == 0) {
+            $className: "#{$className}#{$addDash}#{$key}";
+        }@else {
+            $className: "#{$key}#{$addDash}#{$className}";
+        }
+        $result: map-merge(
+            $result,
+            (
+                "#{$className}": $val
+            )
+        );
+    }
+
+    @return $result;
+}
+
+/**
+ * Generates CSS classes with a single property from a map of CSS variables.
+ *
+ * @param {Map} $cssVarMap - A map of CSS variables.
+ * @param {String} $property - The CSS property to be applied.
+ */
+
+@mixin generateClassWithSingleProperty($cssVarMap, $property) {
+    @each $key, $val in $cssVarMap {
+        .#{$key} {
+            #{$property}: $val;
+        }
+    }
+}
+
+/**
+ * Generates CSS classes with a multiple property with same value from a map of CSS variables.
+ *
+ * @param {Map} $cssVarMap - A map of CSS variables.
+ * @param {List} $properties - The CSS properties to be applied.
+ */
+
+@mixin generateClassWithMultiPropSameValue($cssVarMap, $properties) {
+    @each $key, $val in $cssVarMap {
+        .#{$key} {
+            @each $property in $properties {
+                #{$property}: $val;
+            }
+        }
+    }
+}

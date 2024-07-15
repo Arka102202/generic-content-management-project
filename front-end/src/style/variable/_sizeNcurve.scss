@@ -1,0 +1,10 @@
+$width: ("auto": auto);
+
+@for $i from 1 through 100 {
+    $width: map-merge(
+        $map1: $width,
+        $map2: (
+            "#{$i}": #{"#{$i}%"}
+        )
+    );
+}

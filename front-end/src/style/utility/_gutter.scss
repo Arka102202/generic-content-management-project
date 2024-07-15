@@ -1,0 +1,15 @@
+@include generateClassWithSingleProperty(map2Class_nameAsKey($p, "p"), "padding");
+@include generateClassWithMultiPropSameValue(map2Class_nameAsKey($p, "px"), ("padding-top", "padding-bottom"));
+@include generateClassWithMultiPropSameValue(map2Class_nameAsKey($p, "py"), ("padding-right", "padding-left"));
+@include generateClassWithSingleProperty(map2Class_nameAsKey($p, "pt"), "padding-top");
+@include generateClassWithSingleProperty(map2Class_nameAsKey($p, "pr"), "padding-right");
+@include generateClassWithSingleProperty(map2Class_nameAsKey($p, "pb"), "padding-bottom");
+@include generateClassWithSingleProperty(map2Class_nameAsKey($p, "pl"), "padding-left");
+
+@include generateClassWithSingleProperty(map2Class_nameAsKey($m, "m"), "margin");
+@include generateClassWithMultiPropSameValue(map2Class_nameAsKey($m, "mx"), ("margin-top", "margin-bottom"));
+@include generateClassWithMultiPropSameValue(map2Class_nameAsKey($m, "my"), ("margin-right", "margin-left"));
+@include generateClassWithSingleProperty(map2Class_nameAsKey($m, "mt"), "margin-top");
+@include generateClassWithSingleProperty(map2Class_nameAsKey($m, "mr"), "margin-right");
+@include generateClassWithSingleProperty(map2Class_nameAsKey($m, "mb"), "margin-bottom");
+@include generateClassWithSingleProperty(map2Class_nameAsKey($m, "ml"), "margin-left");

@@ -1,0 +1,21 @@
+$primary-clr: $blue;
+$secondary-clr: $yellow;
+$accent-1-clr: $red;
+$accent-2-clr: $orange;
+
+html {
+    @include generateCssVariables(scss2CssVariables($primary-clr, "primary-clr"));
+    @include generateCssVariables(scss2CssVariables($secondary-clr, "secondary-clr"));
+    @include generateCssVariables(scss2CssVariables($accent-1-clr, "accent-1-clr"));
+    @include generateCssVariables(scss2CssVariables($accent-2-clr, "accent-2-clr"));
+}
+
+$breakPoints: (
+    "xxl": 1500,
+    "xl": 1250,
+    "l": 1024,
+    "md": 768,
+    "s": 425,
+    "xs": 375,
+    "xxs": 320,
+);

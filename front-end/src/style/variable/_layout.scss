@@ -1,0 +1,95 @@
+$display: (
+    "block": block,
+    "inline": inline,
+    "inline-block": inline-block,
+    "flex": flex,
+    "grid": grid,
+    "none": none
+);
+
+$common-justify-align: (
+    "center": center,
+    "start": start,
+    "end": end,
+    "flex-start": flex-start,
+    "flex-end": flex-end,
+    "left": left,
+    "right": right,
+    "space-between": space-between,
+    "space-around": space-around,
+    "space-evenly": space-evenly,
+    "stretch": stretch,
+    "baseline": baseline,
+    "first-baseline": first baseline,
+    "last-baseline": last baseline
+);
+
+$justify-content: $common-justify-align;
+
+$justify-items: $common-justify-align;
+
+$justify-self: $common-justify-align;
+
+$align-content: $common-justify-align;
+
+$align-items: $common-justify-align;
+
+$align-self: $common-justify-align;
+
+// different grid properties
+
+$span: ();
+$order: ();
+
+@for $i from 1 through 12 {
+    $span: map-merge(
+        $map1: $span,
+        $map2: (
+            "#{$i}": #{"span #{$i}"}
+        )
+    );
+    $order: map-merge(
+        $map1: $order,
+        $map2: (
+            "#{$i}": #{$i}
+        )
+    );
+}
+
+$span-specific: ();
+
+@for $i from 1 through 13 {
+    @for $j from $i + 1 through 13 {
+        $span-specific: map-merge(
+            $map1: $span-specific,
+            $map2: (
+                "#{$i}-#{$j}": #{"#{$i}/#{$j}"}
+            )
+        );
+    }
+}
+
+//  for flex
+
+$flex-wrap: (
+    "wrap": wrap,
+    "nowrap": nowrap,
+    "wrap-r": wrap-reverse
+);
+
+$flex-direction: (
+    "row": row,
+    "col": col,
+    "row-r": row-reverse,
+    "col-r": column-reverse
+);
+
+// all about position
+
+$pos: (
+    "static": static,
+    "rel": relative,
+    "abs": absolute,
+    "fix": fixed,
+    "sticky": sticky
+);
