@@ -13,3 +13,23 @@
 @include generateClassWithSingleProperty(map2Class_nameAsKey($m, "mr"), "margin-right");
 @include generateClassWithSingleProperty(map2Class_nameAsKey($m, "mb"), "margin-bottom");
 @include generateClassWithSingleProperty(map2Class_nameAsKey($m, "ml"), "margin-left");
+
+@each $key, $val in $breakPoints {
+  @media (max-width: #{$val}px) {
+    @include generateClassWithSingleProperty(map2Class_nameAsKey($p, "p-#{$key}"), "padding");
+    @include generateClassWithMultiPropSameValue(map2Class_nameAsKey($p, "px-#{$key}"), ("padding-top", "padding-bottom"));
+    @include generateClassWithMultiPropSameValue(map2Class_nameAsKey($p, "py-#{$key}"), ("padding-right", "padding-left"));
+    @include generateClassWithSingleProperty(map2Class_nameAsKey($p, "pt-#{$key}"), "padding-top");
+    @include generateClassWithSingleProperty(map2Class_nameAsKey($p, "pr-#{$key}"), "padding-right");
+    @include generateClassWithSingleProperty(map2Class_nameAsKey($p, "pb-#{$key}"), "padding-bottom");
+    @include generateClassWithSingleProperty(map2Class_nameAsKey($p, "pl-#{$key}"), "padding-left");
+
+    @include generateClassWithSingleProperty(map2Class_nameAsKey($m, "m-#{$key}"), "margin");
+    @include generateClassWithMultiPropSameValue(map2Class_nameAsKey($m, "mx-#{$key}"), ("margin-top", "margin-bottom"));
+    @include generateClassWithMultiPropSameValue(map2Class_nameAsKey($m, "my-#{$key}"), ("margin-right", "margin-left"));
+    @include generateClassWithSingleProperty(map2Class_nameAsKey($m, "mt-#{$key}"), "margin-top");
+    @include generateClassWithSingleProperty(map2Class_nameAsKey($m, "mr-#{$key}"), "margin-right");
+    @include generateClassWithSingleProperty(map2Class_nameAsKey($m, "mb-#{$key}"), "margin-bottom");
+    @include generateClassWithSingleProperty(map2Class_nameAsKey($m, "ml-#{$key}"), "margin-left");
+  }
+}

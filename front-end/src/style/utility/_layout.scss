@@ -1,9 +1,9 @@
 @include generateClassWithSingleProperty(map2Class_nameAsKey($display, ""), "display");
 
 @each $key, $val in $breakPoints {
-    @media (max-width: #{$val}px) {
-        @include generateClassWithSingleProperty(map2Class_nameAsKey($display, "#{$key}", 1), "display");
-    }
+  @media (max-width: #{$val}px) {
+    @include generateClassWithSingleProperty(map2Class_nameAsKey($display, "#{$key}", 1), "display");
+  }
 }
 
 @include generateClassWithSingleProperty(map2Class_nameAsKey($justify-content, "justify-content"), "justify-content");
@@ -22,86 +22,142 @@
 @include generateClassWithSingleProperty(map2Class_nameAsKey($order, "order"), "order");
 
 @for $i from 1 through 50 {
-    .grid-auto-fit-#{$i} {
-        grid-template-columns: repeat(auto-fit, minmax(#{$i}rem, 1fr));
-    }
+  .grid-auto-fit-#{$i} {
+    grid-template-columns: repeat(auto-fit, minmax(#{$i}rem, 1fr));
+  }
 }
 
 @for $i from 1 through 12 {
-    @for $j from 1 through 5 {
-        .grid-#{$i}-gap-#{$j} {
-            grid-template-columns: repeat($i, #{"calc( (100% - #{$j * ($i - 1)}rem) / #{$i})"});
-            gap: #{$j}rem;
-        }
-        .grid-#{$i}-col-gap-#{$j} {
-            grid-template-columns: repeat($i, #{"calc( (100% - #{$j * ($i - 1)}rem) / #{$i})"});
-            column-gap: #{$j}rem !important;
-        }
-    }
-    .grid-#{$i} {
-        grid-template-columns: repeat($i, #{"calc( 100% / #{$i})"}) !important;
+  @for $j from 1 through 5 {
+    .grid-#{$i}-gap-#{$j} {
+      grid-template-columns: repeat($i, #{"calc( (100% - #{$j * ($i - 1)}rem) / #{$i})"});
+ gap: #{$j}rem;
     }
 
-    @if ($i <= 5) {
-        .row-gap-#{$i} {
-            row-gap: #{$i}rem;
-        }
+    .grid-#{$i}-col-gap-#{$j} {
+      grid-template-columns: repeat($i, #{"calc( (100% - #{$j * ($i - 1)}rem) / #{$i})"});
+ column-gap: #{$j}rem !important;
     }
+  }
+
+  .grid-#{$i} {
+    grid-template-columns: repeat($i, #{"calc( 100% / #{$i})"}) !important;
+
+  }
 }
 
-.flex > * {
-    max-width: 100%;
+@for $i from 1 through 5 {
+  .gap-#{$i} {
+    gap: #{$i}rem;
+  }
+
+  .col-gap-#{$i} {
+    gap: #{$i}rem !important;
+  }
+
+  .row-gap-#{$i} {
+    row-gap: #{$i}rem;
+  }
+}
+
+// responsive
+@each $key, $val in $breakPoints {
+  @media (max-width: #{$val}px) {
+    @for $i from 1 through 12 {
+      @for $j from 1 through 5 {
+        .grid-#{$i}-gap-#{$key}-#{$j} {
+          grid-template-columns: repeat($i, #{"calc( (100% - #{$j * ($i - 1)}rem) / #{$i})"});
+ gap: #{$j}rem;
+        }
+
+        .grid-#{$i}-col-gap-#{$key}-#{$j} {
+          grid-template-columns: repeat($i, #{"calc( (100% - #{$j * ($i - 1)}rem) / #{$i})"});
+ column-gap: #{$j}rem !important;
+        }
+      }
+    }
+  }
+}
+
+@each $key, $val in $breakPoints {
+  @media (max-width: #{$val}px) {
+    @for $i from 1 through 5 {
+      .gap-#{$key}-#{$i} {
+        gap: #{$i}rem;
+      }
+
+      .col-gap-#{$key}-#{$i} {
+        gap: #{$i}rem !important;
+      }
+
+      .row-gap-#{$key}-#{$i} {
+        row-gap: #{$i}rem;
+      }
+    }
+  }
+}
+
+@each $key, $val in $breakPoints {
+  @media (max-width: #{$val}px) {
+    @include generateClassWithSingleProperty(map2Class_nameAsKey($span, "col-span-#{$key}"), "grid-column");
+    @include generateClassWithSingleProperty(map2Class_nameAsKey($span-specific, "col-span-#{$key}"), "grid-column");
+    @include generateClassWithSingleProperty(map2Class_nameAsKey($span, "row-span-#{$key}"), "grid-row");
+    @include generateClassWithSingleProperty(map2Class_nameAsKey($span-specific, "row-span" -#{$key}), "grid-row");
+    @include generateClassWithSingleProperty(map2Class_nameAsKey($order, "order-#{$key}"), "order");
+  }
+}
+
+
+.flex>* {
+  max-width: 100%;
 }
 
 .col-even {
-    flex: 1 0 0%;
-}
-.col-fixed-wd {
-    flex: 0 0 auto;
-}
-.col-auto {
-    flex: 0 0 auto;
-    width: auto !important;
+  flex: 1 0 0%;
 }
 
-@for $j from 1 through 5 {
-    .gap-#{$j} {
-        gap: #{$j}rem;
-    }
-    .col-gap-#{$j} {
-        gap: #{$j}rem !important;
-    }
+.col-fixed-wd {
+  flex: 0 0 auto;
+}
+
+.col-auto {
+  flex: 0 0 auto;
+  width: auto !important;
 }
 
 @include generateClassWithSingleProperty(map2Class_nameAsKey($pos, "pos"), "position");
 
 .elem-cen {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
+
 .elem-left-cen {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translate(0, -50%);
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(0, -50%);
 }
+
 .elem-right-cen {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translate(0, -50%);
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(0, -50%);
 }
+
 .elem-top-cen {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, 0);
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
+
 .elem-right-cen {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%, 0);
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
 }

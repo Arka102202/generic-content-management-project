@@ -1,21 +1,20 @@
 $m: (
     "auto": auto
 );
-$p: ();
+$p: (
+);
 
 @for $i from 1 through 5 {
-    $m: map-merge(
-        $map1: $m,
-        $map2: (
+    $m: map-merge($map1: $m,
+            $map2: (
             "#{$i}": #{"#{$i}rem"}
-        )
+)
     );
-    $p: map-merge(
-        $map1: $p,
+$p: map-merge($map1: $p,
         $map2: (
-            "#{$i}": #{"#{$i}rem"}
-        )
-    );
+        "#{$i}": #{"#{$i}rem"}
+)
+);
 }
 
 
@@ -29,3 +28,6 @@ $heading-btm-spacer: 1rem;
 
 // after sub-heading
 $sub-heading-btm-spacer: 3rem;
+
+// spacing between elements or cards
+$elem-spacer: 2rem;

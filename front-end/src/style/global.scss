@@ -3,7 +3,7 @@ $secondary-clr: $yellow;
 $accent-1-clr: $red;
 $accent-2-clr: $orange;
 
-html {
+:root {
     @include generateCssVariables(scss2CssVariables($primary-clr, "primary-clr"));
     @include generateCssVariables(scss2CssVariables($secondary-clr, "secondary-clr"));
     @include generateCssVariables(scss2CssVariables($accent-1-clr, "accent-1-clr"));
@@ -19,3 +19,47 @@ $breakPoints: (
     "xs": 375,
     "xxs": 320,
 );
+
+$rem: (
+    "xxl": 18px,
+    "xl": 16px,
+    "l": 14px,
+    "md": 12px,
+    "s": 10px,
+    "xs": 8px,
+    "xxs": 6px,
+);
+
+
+@each $key, $val in $breakPoints {
+    @media (max-width: #{$val}px) {
+        :root {
+            font-size: map-get($map: $rem, $key: $key);
+        }
+    }
+}
+
+
+*,
+*::placeholder,
+*::after,
+*::before {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+img {
+    width: 100%;
+    max-width: 100%;
+}
+
+button,
+input,
+select {
+    outline: none;
+}
+
+a {
+    text-decoration: none;
+}
