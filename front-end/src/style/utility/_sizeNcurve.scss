@@ -1,9 +1,0 @@
-@include generateClassWithSingleProperty(map2Class_nameAsKey($width, "wd"), "width");
-
-@each $key, $val in $breakPoints {
-    @media (max-width: #{$val}px) {
-        @include generateClassWithSingleProperty(map2Class_nameAsKey($width, "wd-#{$key}"), "width");
-    }
-}
-
-

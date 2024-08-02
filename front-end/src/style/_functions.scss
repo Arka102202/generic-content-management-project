@@ -59,55 +59,28 @@
  *
  * @param {Map} $scssVar - A map of SCSS variables.
  * @param {String} $class_prefix - The prefix for the class name.
- * @param {String} $value_prefix - The prefix for the CSS variable name.
+ * @param {String} $hasVar - to indicate that a global variable has and use that.
  * @return {Map} - A map where keys are class names and values are CSS variable references.
  */
 
-@function map2Class_nameDifferentFromKey($scssVar, $class_prefix, $value_prefix) {
-    $result: ();
-
-    @each $key, $val in $scssVar {
-        $suffix: extractNumber($key);
-        $className: #{$class_prefix}-#{$value_prefix}#{$suffix};
-        $valueName: #{$value_prefix}#{$suffix};
-        $result: map-merge(
-            $result,
-            (
-                "#{$className}": var(--#{$valueName})
-            )
-        );
-    }
-
-    @return $result;
-}
-
-/**
- * Converts a map of SCSS variables into a map of class names and CSS variable references.
- *
- * @param {Map} $scssVar - A map of SCSS variables.
- * @param {String} $class_prefix - The prefix for the class name.
- *
- * @return {Map} - A map where keys are class names and values are CSS variable references.
- */
-
-@function map2Class_nameAsKey($scssVar, $class_prefix, $reverse: 0) {
+@function map2Class_nameAsKey($scssVar, $class_prefix, $reverse: 0, $hasVar: 0) {
     $result: ();
 
     @each $key, $val in $scssVar {
         $className: $class_prefix;
-        $addDash: "";
+        $delimiter: "";
         @if ($class_prefix != "") {
-            $addDash: "-";
+            $delimiter: "-";
         }
         @if ($reverse == 0) {
-            $className: "#{$className}#{$addDash}#{$key}";
-        }@else {
-            $className: "#{$key}#{$addDash}#{$className}";
+            $className: "#{$className}#{$delimiter}#{$key}";
+        } @else {
+            $className: "#{$key}#{$delimiter}#{$className}";
         }
         $result: map-merge(
             $result,
             (
-                "#{$className}": $val
+                "#{$className}": if($hasVar == 1, var(--#{$key}), $val)
             )
         );
     }

@@ -1,4 +1,13 @@
-@include generateClassWithSingleProperty(map2Class_nameDifferentFromKey($primary-clr, bg, primary-clr), "background");
-@include generateClassWithSingleProperty(map2Class_nameDifferentFromKey($secondary-clr, bg, secondary-clr), "background");
-@include generateClassWithSingleProperty(map2Class_nameDifferentFromKey($accent-1-clr, bg, accent-1-clr), "background");
-@include generateClassWithSingleProperty(map2Class_nameDifferentFromKey($accent-2-clr, bg, accent-2-clr), "background");
+@include generateClassWithSingleProperty(map2Class_nameAsKey($gray, bg, 0, 1), "background");
+@include generateClassWithSingleProperty(map2Class_nameAsKey($red, bg, 0, 1), "background");
+@include generateClassWithSingleProperty(map2Class_nameAsKey($pink, bg, 0, 1), "background");
+@include generateClassWithSingleProperty(map2Class_nameAsKey($grape, bg, 0, 1), "background");
+@include generateClassWithSingleProperty(map2Class_nameAsKey($violet, bg, 0, 1), "background");
+@include generateClassWithSingleProperty(map2Class_nameAsKey($indigo, bg, 0, 1), "background");
+@include generateClassWithSingleProperty(map2Class_nameAsKey($blue, bg, 0, 1), "background");
+@include generateClassWithSingleProperty(map2Class_nameAsKey($cyan, bg, 0, 1), "background");
+@include generateClassWithSingleProperty(map2Class_nameAsKey($teal, bg, 0, 1), "background");
+@include generateClassWithSingleProperty(map2Class_nameAsKey($green, bg, 0, 1), "background");
+@include generateClassWithSingleProperty(map2Class_nameAsKey($lime, bg, 0, 1), "background");
+@include generateClassWithSingleProperty(map2Class_nameAsKey($yellow, bg, 0, 1), "background");
+@include generateClassWithSingleProperty(map2Class_nameAsKey($orange, bg, 0, 1), "background");

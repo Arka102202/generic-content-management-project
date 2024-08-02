@@ -15,9 +15,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "dev": "react-scripts start dotenv_config_path=.env",
-    "compile:scss": "sass --watch src/style/main.scss src/index.css",
-    "start": "npm-run-all --parallel dev compile:scss",
+    "start": "react-scripts start dotenv_config_path=.env",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

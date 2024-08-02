@@ -1,13 +1,17 @@
-$primary-clr: $blue;
-$secondary-clr: $yellow;
-$accent-1-clr: $red;
-$accent-2-clr: $orange;
-
 :root {
-    @include generateCssVariables(scss2CssVariables($primary-clr, "primary-clr"));
-    @include generateCssVariables(scss2CssVariables($secondary-clr, "secondary-clr"));
-    @include generateCssVariables(scss2CssVariables($accent-1-clr, "accent-1-clr"));
-    @include generateCssVariables(scss2CssVariables($accent-2-clr, "accent-2-clr"));
+    @include generateCssVariables(scss2CssVariables($gray, "gray"));
+    @include generateCssVariables(scss2CssVariables($red, "red"));
+    @include generateCssVariables(scss2CssVariables($pink, "pink"));
+    @include generateCssVariables(scss2CssVariables($grape, "grape"));
+    @include generateCssVariables(scss2CssVariables($violet, "violet"));
+    @include generateCssVariables(scss2CssVariables($indigo, "indigo"));
+    @include generateCssVariables(scss2CssVariables($blue, "blue"));
+    @include generateCssVariables(scss2CssVariables($cyan, "cyan"));
+    @include generateCssVariables(scss2CssVariables($teal, "teal"));
+    @include generateCssVariables(scss2CssVariables($green, "green"));
+    @include generateCssVariables(scss2CssVariables($lime, "lime"));
+    @include generateCssVariables(scss2CssVariables($yellow, "yellow"));
+    @include generateCssVariables(scss2CssVariables($orange, "orange"));
 }
 
 $breakPoints: (
@@ -17,7 +21,7 @@ $breakPoints: (
     "md": 768,
     "s": 425,
     "xs": 375,
-    "xxs": 320,
+    "xxs": 320
 );
 
 $rem: (
@@ -27,9 +31,8 @@ $rem: (
     "md": 12px,
     "s": 10px,
     "xs": 8px,
-    "xxs": 6px,
+    "xxs": 6px
 );
-
 
 @each $key, $val in $breakPoints {
     @media (max-width: #{$val}px) {
@@ -39,6 +42,7 @@ $rem: (
     }
 }
 
+// global overwrite
 
 *,
 *::placeholder,
@@ -63,3 +67,17 @@ select {
 a {
     text-decoration: none;
 }
+
+// different spacer variable
+
+// spacing between section
+$sec-spacer: 10rem;
+
+// after section heading
+$heading-btm-spacer: 1rem;
+
+// after sub-heading
+$sub-heading-btm-spacer: 3rem;
+
+// spacing between elements or cards
+$elem-spacer: 2rem;

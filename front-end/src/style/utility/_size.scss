@@ -1,0 +1,23 @@
+@include generateClassWithSingleProperty(map2Class_nameAsKey($width, "wd"), "width");
+
+@each $key, $val in $breakPoints {
+    @media (max-width: #{$val}px) {
+        @include generateClassWithSingleProperty(map2Class_nameAsKey($width, "wd-#{$key}"), "width");
+    }
+}
+
+@include generateClassWithSingleProperty(map2Class_nameAsKey($width, "ht"), "height");
+
+@each $key, $val in $breakPoints {
+    @media (max-width: #{$val}px) {
+        @include generateClassWithSingleProperty(map2Class_nameAsKey($width, "ht-#{$key}"), "height");
+    }
+}
+
+@include generateClassWithMultiPropSameValue(map2Class_nameAsKey($size, "size"), ("width", "height"));
+
+@each $key, $val in $breakPoints {
+    @media (max-width: #{$val}px) {
+        @include generateClassWithMultiPropSameValue(map2Class_nameAsKey($size, "size-#{$key}"), ("width", "height"));
+    }
+}

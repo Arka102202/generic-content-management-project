@@ -1,0 +1,33 @@
+$width: (
+    "auto": auto
+);
+
+@for $i from 1 through 100 {
+    $width: map-merge(
+        $map1: $width,
+        $map2: (
+            "#{$i}": #{"#{$i}%"}
+        )
+    );
+}
+@for $i from 1 through 20 {
+    $width: map-merge(
+        $map1: $width,
+        $map2: (
+            "#{$i}rem": #{"#{$i}rem"}
+        )
+    );
+}
+$size: (
+    "auto": auto
+);
+
+@for $i from 1 through 10 {
+    $size: map-merge(
+        $map1: $size,
+        $map2: (
+            "#{$i}": #{"#{$i}%"},
+            "#{$i}rem": #{"#{$i}rem"}
+        )
+    );
+}

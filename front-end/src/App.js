@@ -8,7 +8,6 @@ import Blog from "./page/Blog";
 import Event from "./page/Event";
 import ContactUs from "./page/ContactUs";
 import AboutUs from "./page/AboutUs";
-import { useEffect } from "react";
 
 function App() {
 

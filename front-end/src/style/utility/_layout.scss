@@ -31,18 +31,17 @@
   @for $j from 1 through 5 {
     .grid-#{$i}-gap-#{$j} {
       grid-template-columns: repeat($i, #{"calc( (100% - #{$j * ($i - 1)}rem) / #{$i})"});
- gap: #{$j}rem;
+      gap: #{$j}rem;
     }
 
     .grid-#{$i}-col-gap-#{$j} {
       grid-template-columns: repeat($i, #{"calc( (100% - #{$j * ($i - 1)}rem) / #{$i})"});
- column-gap: #{$j}rem !important;
+      column-gap: #{$j}rem !important;
     }
   }
 
   .grid-#{$i} {
     grid-template-columns: repeat($i, #{"calc( 100% / #{$i})"}) !important;
-
   }
 }
 
@@ -61,18 +60,19 @@
 }
 
 // responsive
+
 @each $key, $val in $breakPoints {
   @media (max-width: #{$val}px) {
     @for $i from 1 through 12 {
       @for $j from 1 through 5 {
         .grid-#{$i}-gap-#{$key}-#{$j} {
           grid-template-columns: repeat($i, #{"calc( (100% - #{$j * ($i - 1)}rem) / #{$i})"});
- gap: #{$j}rem;
+          gap: #{$j}rem;
         }
 
         .grid-#{$i}-col-gap-#{$key}-#{$j} {
           grid-template-columns: repeat($i, #{"calc( (100% - #{$j * ($i - 1)}rem) / #{$i})"});
- column-gap: #{$j}rem !important;
+          column-gap: #{$j}rem !important;
         }
       }
     }
@@ -102,13 +102,12 @@
     @include generateClassWithSingleProperty(map2Class_nameAsKey($span, "col-span-#{$key}"), "grid-column");
     @include generateClassWithSingleProperty(map2Class_nameAsKey($span-specific, "col-span-#{$key}"), "grid-column");
     @include generateClassWithSingleProperty(map2Class_nameAsKey($span, "row-span-#{$key}"), "grid-row");
-    @include generateClassWithSingleProperty(map2Class_nameAsKey($span-specific, "row-span" -#{$key}), "grid-row");
+    @include generateClassWithSingleProperty(map2Class_nameAsKey($span-specific, "row-span-#{$key}"), "grid-row");
     @include generateClassWithSingleProperty(map2Class_nameAsKey($order, "order-#{$key}"), "order");
   }
 }
 
-
-.flex>* {
+.flex > * {
   max-width: 100%;
 }
 
@@ -124,6 +123,8 @@
   flex: 0 0 auto;
   width: auto !important;
 }
+
+// about position
 
 @include generateClassWithSingleProperty(map2Class_nameAsKey($pos, "pos"), "position");
 
@@ -160,4 +161,18 @@
   bottom: 0;
   left: 50%;
   transform: translate(-50%, 0);
+}
+
+// overflow
+
+@include generateClassWithSingleProperty(map2Class_nameAsKey($overflow, "overflow"), "overflow");
+@include generateClassWithSingleProperty(map2Class_nameAsKey($overflow, "overflow-x"), "overflow-x");
+@include generateClassWithSingleProperty(map2Class_nameAsKey($overflow, "overflow-y"), "overflow-y");
+
+// z-index
+
+@for $i from 0 through 1000 {
+  .z-idx-#{$i} {
+    z-index: $i;
+  }
 }
