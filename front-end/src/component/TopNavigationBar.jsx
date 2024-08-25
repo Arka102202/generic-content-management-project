@@ -11,14 +11,18 @@ const TopNavigationBar = () => {
 
     const [className, setClassName] = useState("wd-100");
     const vars = {
-        something: 10
+        "mainWidth": "80%",
+        "flexGap": "1rem",
+        "flexDir": "row",
+        "firstCol": "1fr",
+        "spanVal": "2/4"
     }
     return (
-        <nav className={`vars-${JSON.stringify(vars)} wd-100 top-nav flex justify-content-space-between align-items-center py-2`}>
-            <div className='logo-box col-fixed-wd wd-7 wd-md-10'>
-                <img src={logo} alt="" className="wd-80" onClick={() => setClassName(`wd-${getRandomInt(60, 100)}`)} />
+        <nav className={`vars_e_html-${JSON.stringify(vars)} wd-100 topNav d-flex_sb_c py-2_imp`}>
+            <div className='logo-box d-flex_c_c col-fixed-wd wd-7 wd-xxl-10 wd-l-10 wd-md-10 align_left-fix_20 left-20_imp wd-myname' >
+                <img src={logo} alt="" className={`${className}`} onClick={() => setClassName(`wd-${getRandomInt(60, 100)}`)} />
             </div>
-            <div className='navigation-box flex justify-content-end align-items-center gap-1 col-fixed-wd'>
+            <div className='navigation-box d-flex_fe_c_vFlexGap col-fixed-wd flex_dir-vFlexDir'>
                 <Link to={"/about-us"}>About Us</Link>
                 <Link to={"/blogs"}>Blog</Link>
                 <Link to={"/events"}>Event</Link>

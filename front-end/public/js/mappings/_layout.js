@@ -17,14 +17,14 @@ export const layoutAlignments = {
 
 export const flexDir = {
   "row": "row",
-  "row_r": "row-reverse",
+  "rowR": "row-reverse",
   "col": "column",
-  "col_r": "column-reverse"
+  "colR": "column-reverse"
 }
 
 export const flexWrap = {
   "wrap": "wrap",
-  "wrap_r": "wrap-reverse",
+  "wrapR": "wrap-reverse",
   "nowrap": "nowrap"
 }
 
@@ -40,4 +40,15 @@ export const overflow = {
   "auto": "auto",
   "hidden": "hidden",
   "scroll": "scroll"
+}
+
+export const sides = {
+  t: "top",
+  r: "right",
+  b: "bottom",
+  l: "left",
+  top: "top",
+  right: "right",
+  bottom: "bottom",
+  left: "left"
 }

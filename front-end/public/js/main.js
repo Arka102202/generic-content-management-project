@@ -7,8 +7,7 @@ const styleTag = document.getElementById("style");
 // Initialize a Set to store unique class names
 const classNames = new Set();
 
-// Flags to check if the page is reloaded and to track the start index for processing class names
-let isReloaded = true;
+// to track the start index for processing class names
 let startIdx = 0;
 
 /**
@@ -19,8 +18,11 @@ let startIdx = 0;
  * 
  */
 function getAllClassNames(element = document.body, classNames = new Set()) {
+
   // If the element has classList, add each class name to the Set
-  if (element.classList) element.classList.forEach(className => classNames.add(className));
+  if (element.classList) {
+    element.classList.forEach(className => classNames.add(className));
+  }
   // Recursively call the function for each child node
   (element.childNodes || []).forEach(child => getAllClassNames(child, classNames));
 
@@ -33,18 +35,12 @@ function getAllClassNames(element = document.body, classNames = new Set()) {
  * @param {MutationRecord[]} mutationsList - A list of MutationRecord objects describing each change.
  */
 const handleMutations = (mutationsList = []) => {
+
   mutationsList.forEach(el => {
-
-    // Check if this is the first time the body element is being processed after reload
-    if (isReloaded && el.target.localName === "body") {
-
+    if (el.target.localName === "body" || el.target.id === "root") {
       // Get all class names from the body and its children
       getAllClassNames(el.target, classNames);
-
-      // Set the flag to false so this block doesn't execute again unnecessarily
-      isReloaded = false;
     }
-
     // If not the first time, add class names from the target element's classList
     else el.target.classList.forEach(el => classNames.add(el));
 
@@ -56,6 +52,8 @@ const handleMutations = (mutationsList = []) => {
     if (idx++ >= startIdx) createClass(el, styleTag);
   });
 
+
+
   // Update startIdx to avoid reprocessing class names
   startIdx = classNames.size;
 }
@@ -66,15 +64,13 @@ const observer = new MutationObserver(handleMutations);
 /**
  * Starts observing changes in the body element's attributes, child nodes, and subtree.
  */
-function startObserving() {
+export function startObserving() {
   const targetNode = document.body;
-
   // Configure the observer to look for changes in attributes, child nodes, and the subtree
   observer.observe(targetNode, { attributes: true, childList: true, subtree: true });
+  targetNode.classList.toggle("toggle-class");
 }
 
 // Set up an event listener to run the initial class name processing and start observing when the page loads
-window.addEventListener('load', () => {
-  handleMutations([]); // Initial call with an empty mutation list to process stored class names
-  startObserving();    // Begin observing changes
-});
+window.addEventListener('DOMContentLoaded', startObserving);
+

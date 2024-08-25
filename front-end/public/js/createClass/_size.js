@@ -1,30 +1,32 @@
-import { breakPoints } from "../_variables.js";
-import { addMediaQuery } from "./_generic.js";
+import { addValueToPropNVals, getClassDefinition, getCompleteClassDefinition, processValuePart } from "./_generic.js";
 
 export const sizeClasses = (className = "", classParts = []) => {
-  // [max/min]_[wd/ht/size]-10 ==> width: 10%;
-  // [max/min]_[wd/ht/size]-10(rem/vh/vw/px) => width: 10(rem/vh/vw/px);
-  // [max/min]_[wd/ht/size]-xxl-[10/10(rem/vh/vw/px)] => add @query rule along with the class
-  // [max/min]_[wd/ht/size]-[max/min]_xxl-[10/10(rem/vh/vw/px)] => add @query rule along with the class
+  // [max/min]_[wd/ht/size]-10_imp ==> width: 10%;
+  // [max/min]_[wd/ht/size]-10(rem/vh/vw/px)_imp => width: 10(rem/vh/vw/px);
+  // [max/min]_[wd/ht/size]-xxl-[10/10(rem/vh/vw/px)]_imp => add @query rule along with the class
+  // [max/min]_[wd/ht/size]-[max/min]_xxl-[10/10(rem/vh/vw/px)]_imp => add @query rule along with the class
 
-  const len = classParts.length;
-  const val = classParts.at(-1);
-  let propNVal = !isNaN(Number(classParts.at(-1))) ? val + "%" : val;
-  let classToBuild = `.${className}{
-        ${/(wd|size)$/.test(classParts[0]) ? `${!/^(max|min)/.test(classParts[0]) ? "" : `${classParts[0].split("_")[0]}-`}width: ${propNVal};` : ""}                  
-        ${/(ht|size)$/.test(classParts[0]) ? `${!/^(max|min)/.test(classParts[0]) ? "" : `${classParts[0].split("_")[0]}-`}height: ${propNVal};` : ""}                               
-    }`;
+  const val = processValuePart(classParts.at(-1), null, true);
+  const properties = [];
+  const vals = [];
 
-  if (len === 3) console.log(className, classParts[0].startsWith("min"));
-
-  return len === 2 ? classToBuild : addMediaQuery(!/^(min)/.test(classParts[1]), breakPoints[classParts[1].split("_").at(-1)], classToBuild);
+  addValueToPropNVals(properties, vals, [
+    /(wd|size)$/.test(classParts[0]) ? `${!/^(max|min)/.test(classParts[0]) ? "" : `${classParts[0].split("_")[0]}-`}width` : "", val
+  ]);
+  addValueToPropNVals(properties, vals, [
+    /(ht|size)$/.test(classParts[0]) ? `${!/^(max|min)/.test(classParts[0]) ? "" : `${classParts[0].split("_")[0]}-`}height` : "", val
+  ]);
+  const classToBuild = getClassDefinition(properties, vals, className);
+  return getCompleteClassDefinition(2, classToBuild, classParts);
 }
 
 // aspect-ratio
 export const aspectClasses = (classParts = [], className = "") => {
 
-  // aspect_ratio-[max/min]_{breakpoint}-value
+  // aspect_ratio-[max/min]_{breakpoint}-value_imp
 
-
+  const val = processValuePart(classParts.at(-1).replace("_", "/"));
+  const classToBuild = getClassDefinition(["aspect-ratio"], [val], className);
+  return getCompleteClassDefinition(2, classToBuild, classParts);
 
 }
