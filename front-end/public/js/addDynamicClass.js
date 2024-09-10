@@ -1,5 +1,8 @@
+import { bgClasses } from "./createClass/_background.js";
+import { borderCLasses, ringClasses } from "./createClass/_border.js";
 import { alignClasses, centerElemClasses, flexClasses, gapCLasses, gridClasses, justifyClasses, layoutClasses, orderClasses, overflowClasses, positionClasses, trblClasses, zIndexClasses } from "./createClass/_layout.js";
 import { aspectClasses, sizeClasses } from "./createClass/_size.js";
+import { spacingClasses } from "./createClass/_spacing.js";
 import { varClass } from "./createClass/_var.js";
 
 export const createClass = (className = "", styleTag) => {
@@ -34,7 +37,15 @@ export const createClass = (className = "", styleTag) => {
     } else if (/^(right|left|bottom|top)/.test(firstPart)) {
         styleTag.innerHTML += trblClasses(classParts, className);
     } else if (/^vars/.test(firstPart)) {
-        styleTag.innerHTML += varClass(classParts, className);
+        styleTag.innerHTML = varClass(classParts, className) + styleTag.innerHTML;
+    } else if (/^(p[_-]|m[_-])/.test(className)) {
+        styleTag.innerHTML += spacingClasses(classParts, className);
+    } else if (/^(bg[_-])/.test(className)) {
+        styleTag.innerHTML += bgClasses(classParts, className);
+    } else if (/^(border|outline)/.test(className)) {
+        styleTag.innerHTML += borderCLasses(classParts, className);
+    } else if (/^ring/.test(className)) {
+        styleTag.innerHTML += ringClasses(classParts, className);
     }
 }
 

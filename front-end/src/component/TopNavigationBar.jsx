@@ -19,11 +19,11 @@ const TopNavigationBar = () => {
     }
     return (
         <nav className={`vars_e_html-${JSON.stringify(vars)} wd-100 topNav d-flex_sb_c py-2_imp`}>
-            <div className='logo-box d-flex_c_c col-fixed-wd wd-7 wd-xxl-10 wd-l-10 wd-md-10 align_left-fix_20 left-20_imp wd-myname' >
+            <div className='logo-box d-flex_c_c col-fixed-wd wd-7 wd-xxl-10 wd-l-10 wd-md-10 align_left-fix_20 left-20_imp p_x-20_imp' >
                 <img src={logo} alt="" className={`${className}`} onClick={() => setClassName(`wd-${getRandomInt(60, 100)}`)} />
             </div>
-            <div className='navigation-box d-flex_fe_c_vFlexGap col-fixed-wd flex_dir-vFlexDir'>
-                <Link to={"/about-us"}>About Us</Link>
+            <div className='navigation-box d-flex_fe_c_vFlexGap col-fixed-wd flex_dir-vFlexDir navigation-box>a:[p-.5rem_2.5rem,wd-40]'>
+                <Link to={"/about-us"} className='border-clr_darkolivegreen_wd_2px border_l_wd-4px p-.5rem_2.5rem wd-40'>About Us</Link>
                 <Link to={"/blogs"}>Blog</Link>
                 <Link to={"/events"}>Event</Link>
                 <Link to={"/contact-us"}>Contact Us</Link>
@@ -32,4 +32,4 @@ const TopNavigationBar = () => {
     );
 };
 
-export default TopNavigationBar;
+export default TopNavigationBar;            

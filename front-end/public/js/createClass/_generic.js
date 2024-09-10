@@ -3,7 +3,7 @@ import { breakPoints } from "../mappings/_variables.js";
 export const getClassDefinition = (properties = [], vals = [], className = '') => {
   if (!properties.length || !vals.length) return "";
   return (
-    `.${className} {
+    `.${className.replace(/#/g, "\\#").replace(/\./g, "\\.")} {
     ${properties.map((el, idx) => `${idx !== 0 ? `\t` : ""}${el}: ${vals[idx] ? vals[idx] : processValuePart(vals[idx])}`).join(";\n")};
 }\n`)
 }
@@ -47,11 +47,9 @@ export const processValuePart = (val = "", mappingObj = null, hasNeedToCallGetFo
   if (!result) {
     if (/^v/.test(val)) {
       return `var(-${val.replace(/^v/, "").replace(/[A-Z]/g, match => '-' + match.toLowerCase())})${impString}`;
-    }
-    else if (hasNeedToCallGetFormattedVal) {
+    } else if (hasNeedToCallGetFormattedVal) {
       return getFormattedAbsOrPercentageVal(val) + impString;
-    }
-    else return val + impString;
+    } else return val + impString;
 
   }
 

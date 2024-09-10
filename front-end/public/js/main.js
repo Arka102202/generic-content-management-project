@@ -52,7 +52,7 @@ const handleMutations = (mutationsList = []) => {
     if (idx++ >= startIdx) createClass(el, styleTag);
   });
 
-
+  console.log(classNames);
 
   // Update startIdx to avoid reprocessing class names
   startIdx = classNames.size;
