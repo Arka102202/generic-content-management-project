@@ -23,7 +23,7 @@ const TopNavigationBar = () => {
                 <img src={logo} alt="" className={`${className}`} onClick={() => setClassName(`wd-${getRandomInt(60, 100)}`)} />
             </div>
             <div className='navigation-box d-flex_fe_c_vFlexGap col-fixed-wd flex_dir-vFlexDir navigation-box>a:[p-.5rem_2.5rem,wd-40]'>
-                <Link to={"/about-us"} className='border-clr_darkolivegreen_wd_2px border_l_wd-4px p-.5rem_2.5rem wd-40'>About Us</Link>
+                <Link to={"/about-us"} className='border-clr_grape_wd_2px border_l_wd-4px p-.5rem_2.5rem wd-40'>About Us</Link>
                 <Link to={"/blogs"}>Blog</Link>
                 <Link to={"/events"}>Event</Link>
                 <Link to={"/contact-us"}>Contact Us</Link>
