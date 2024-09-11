@@ -1,7 +1,7 @@
 export const filterClasses = (classParts = [], className = "") => {
 
-  // filter_[blur/brightness/contrast/shadow/gray/hue/invert/sat/sepia]-[max/min]_breakpoint-value
-  // filter-[max/min]_breakpoint-blur_value_brightness_value_....
+  // filter_[blur/brightness/contrast/shadow/gray/hue/invert/sat/sepia]-[max/min]_{breakpoint}-value
+  // filter-[max/min]_{breakpoint}-blur_value_brightness_value_....
 
 
 
@@ -14,8 +14,8 @@ export const filterClasses = (classParts = [], className = "") => {
 
 export const backDropClasses = (classParts = [], className = "") => {
 
-  // bdFilter_[blur/brightness/contrast/shadow/gray/hue/invert/sat/sepia]-[max/min]_breakpoint-value
-  // bdFilter-[max/min]_breakpoint-blur_value_brightness_value_....
+  // bdFilter_[blur/brightness/contrast/shadow/gray/hue/invert/sat/sepia]-[max/min]_{breakpoint}-value
+  // bdFilter-[max/min]_{breakpoint}-blur_value_brightness_value_....
 
 
 
@@ -28,7 +28,7 @@ export const backDropClasses = (classParts = [], className = "") => {
 
 export const blendClasses = (classParts = [], className = "") => {
 
-  // [mix/bg]_blend-[max/min]_breakpoint-value
+  // [mix/bg]_blend-[max/min]_{breakpoint}-value
 
 
 
@@ -41,7 +41,7 @@ export const blendClasses = (classParts = [], className = "") => {
 
 export const opacityClasses = (classParts = [], className = "") => {
 
-  // opacity-[max/min]_breakpoint-value
+  // opacity-[max/min]_{breakpoint}-value
 
 
 
@@ -54,7 +54,7 @@ export const opacityClasses = (classParts = [], className = "") => {
 
 export const shadowClasses = (classParts = [], className = "") => {
 
-  // shadow_[color]-[max/min]_breakpoint-value
+  // shadow_[color]-[max/min]_{breakpoint}-value
 
 
 
@@ -63,7 +63,7 @@ export const shadowClasses = (classParts = [], className = "") => {
 
 export const textGradClasses = (classParts = [], className = "") => {
 
-  // text_grad-[max/min]_breakpoint-value
+  // text_grad-[max/min]_{breakpoint}-value
 
 
 
