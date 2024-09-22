@@ -28,7 +28,7 @@ export const layoutClasses = (classParts = [], className = "") => {
     } else if ((hasFlexDir && i === 3) || (len <= 4 && i === 2)) {
       addValueToPropNVals(properties, vals, ["align-items", processValuePart(valPart, layoutAlignments)]);
     } else
-      addValueToPropNVals(properties, vals, ["gap", processValuePart(valPart, null, true)]);
+      addValueToPropNVals(properties, vals, ["gap", processValuePart(valPart)]);
   }
 
   const classToBuild = getClassDefinition(properties, vals, className);
@@ -58,16 +58,17 @@ export const flexClasses = (classParts = [], className) => {
   const vals = [];
   let classToBuild = "";
   const valPart = classParts.at(-1);
+  const class1stPart = classParts[0];
 
-  if (/^flex_dir/.test(className)) {
+  if (/^flex_dir/.test(class1stPart)) {
     addValueToPropNVals(properties, vals, ["flex-direction", processValuePart(valPart, flexDir)]);
-  } else if (/^flex_grow/.test(className)) {
+  } else if (/^flex_grow/.test(class1stPart)) {
     addValueToPropNVals(properties, vals, ["flex_grow", processValuePart(valPart)]);
-  } else if (/^flex_shrink/.test(className)) {
+  } else if (/^flex_shrink/.test(class1stPart)) {
     addValueToPropNVals(properties, vals, ["flex_shrink", processValuePart(valPart)]);
-  } else if (/^flex_wrap/.test(className)) {
+  } else if (/^flex_wrap/.test(class1stPart)) {
     addValueToPropNVals(properties, vals, ["flex_wrap", processValuePart(valPart, flexWrap)]);
-  } else if (/^flex_child/.test(className)) {
+  } else if (/^flex_child/.test(class1stPart)) {
     addValueToPropNVals(properties, vals, ["max-width", "100%"]);
     if (valPart === "even") {
       addValueToPropNVals(properties, vals, ["flex", "1 0 0%"]);
@@ -116,11 +117,11 @@ export const gridClasses = (classParts = [], className) => {
 
     if (match) {
       if (match[1]) {
-        const formattedVal = processValuePart(match[1], null, true);
+        const formattedVal = processValuePart(match[1]);
         addValueToPropNVals(properties, vals, [`grid-template-${/^col/.test(valPart) ? "columns" : "rows"}`, `repeat(${processValuePart(valParts[1])}, ${formattedVal})`]);
       }
       if (match[3]) {
-        const formattedVal = processValuePart(match[3], null, true);
+        const formattedVal = processValuePart(match[3]);
         addValueToPropNVals(properties, vals, [`${match[2] === "g" ? "gap" : "column-gap"}`, `${formattedVal}`]);
       }
     } else {
@@ -129,7 +130,7 @@ export const gridClasses = (classParts = [], className) => {
       match = valPart.match(regex);
 
       if (match && match[2]) {
-        const formattedVal = processValuePart(match[2], null, true);
+        const formattedVal = processValuePart(match[2]);
         addValueToPropNVals(properties, vals, [`grid-template-columns`, `repeat(auto-${match[1]}, minmax(${formattedVal}, 1fr))`]);
       } else {
 
@@ -137,7 +138,7 @@ export const gridClasses = (classParts = [], className) => {
         const numbers = valPart.replace(/^col_/, "").split("_");
 
         // Convert numbers to the desired format with the appropriate suffix
-        const formattedVal = numbers.map(number => processValuePart(number, null, true)).join(' ');
+        const formattedVal = numbers.map(number => processValuePart(number)).join(' ');
         addValueToPropNVals(properties, vals, [`grid-template-${/^col/.test(valPart) ? "column" : "row"}s`, `${formattedVal}`]);
       }
 
@@ -244,7 +245,7 @@ export const trblClasses = (classParts = [], className = "") => {
 
   // [top/right/bottom/left]-[max/min]_{breakpoint}-value
 
-  const classToBuild = getClassDefinition([classParts.at(0)], [processValuePart(classParts.at(-1), null, true)], className);
+  const classToBuild = getClassDefinition([classParts.at(0)], [processValuePart(classParts.at(-1))], className);
   return getCompleteClassDefinition(2, classToBuild, classParts);
 
 }
@@ -258,8 +259,8 @@ export const centerElemClasses = (classParts = [], className = "") => {
   const properties = [];
   const vals = [];
   const valPart = classParts.at(-1);
-  const value = /^center/.test(className) ? "50%" : processValuePart(valPart.split("_")[1], null, true);
-  const positionTypeABS = /^center/.test(className) ? /abs$/.test(valPart) : /^abs/.test(valPart)
+  const value = /^center/.test(classParts[0]) ? "50%" : processValuePart(valPart.split("_")[1]);
+  const positionTypeABS = /^center/.test(classParts[0]) ? /abs$/.test(valPart) : /^abs/.test(valPart)
   let transformStr = "";
 
   addValueToPropNVals(properties, vals, ["position", positionTypeABS ? "absolute" : "fixed"]);
@@ -273,7 +274,7 @@ export const centerElemClasses = (classParts = [], className = "") => {
     transformStr += "translateX(-50%)";
   }
   if (/^(l|r|t|b)/.test(valPart) || /(top|right|bottom|left)$/.test(classParts[0])) {
-    const tempSide = /^center/.test(className) ? valPart.split("_")[0] : classParts[0].split("_")[1];
+    const tempSide = /^center/.test(classParts[0]) ? valPart.split("_")[0] : classParts[0].split("_")[1];
     addValueToPropNVals(properties, vals, [sides[tempSide], "0"]);
   }
 

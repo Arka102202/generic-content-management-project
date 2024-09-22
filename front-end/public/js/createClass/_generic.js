@@ -2,8 +2,19 @@ import { breakPoints } from "../mappings/_variables.js";
 
 export const getClassDefinition = (properties = [], vals = [], className = '') => {
   if (!properties.length || !vals.length) return "";
+  let modifiedClassName = className.replace(/[.,#%+&:]/g, '\\$&');
+
   return (
-    `.${className.replace(/#/g, "\\#").replace(/\./g, "\\.")} {
+    `.${modifiedClassName} {
+    ${properties.map((el, idx) => `${idx !== 0 ? `\t` : ""}${el}: ${vals[idx] ? vals[idx] : processValuePart(vals[idx])}`).join(";\n")};
+}\n`)
+}
+export const getPseudoElementDefinition = (properties = [], vals = [], className = '', pseudoElement = "") => {
+  if (!properties.length || !vals.length) return "";
+  let modifiedClassName = className.replace(/[.,#%+&:]/g, '\\$&');
+
+  return (
+    `${modifiedClassName ? "." : ""}${modifiedClassName}::${pseudoElement} {
     ${properties.map((el, idx) => `${idx !== 0 ? `\t` : ""}${el}: ${vals[idx] ? vals[idx] : processValuePart(vals[idx])}`).join(";\n")};
 }\n`)
 }
@@ -32,11 +43,8 @@ export const addValueToPropNVals = (properties = [], vals = [], valsToAdd = [], 
   }
 }
 
-export const getFormattedAbsOrPercentageVal = (val = "") => {
-  return !isNaN(Number(val)) ? val + "%" : val;
-}
 
-export const processValuePart = (val = "", mappingObj = null, hasNeedToCallGetFormattedVal = false) => {
+export const processValuePart = (val = "", mappingObj = null, breakWordWithDash = false, isFontName = false, breakWord = false) => {
 
   const impString = /_imp$/.test(val) ? " !important" : "";
   val = val.replace(/_imp$/, "");
@@ -47,11 +55,23 @@ export const processValuePart = (val = "", mappingObj = null, hasNeedToCallGetFo
   if (!result) {
     if (/^v/.test(val)) {
       return `var(-${val.replace(/^v/, "").replace(/[A-Z]/g, match => '-' + match.toLowerCase())})${impString}`;
-    } else if (hasNeedToCallGetFormattedVal) {
-      return getFormattedAbsOrPercentageVal(val) + impString;
+    } else if (breakWordWithDash) {
+      return val.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`) + impString;
+    } else if (breakWord) {
+      return val.replace(/[A-Z]/g, (match) => ` ${match.toLowerCase()}`) + impString;
+    } else if (isFontName) {
+      return formatFontName(val) + impString;
     } else return val + impString;
 
   }
 
   return result;
+}
+
+const formatFontName = (val = "") => {
+  if (/\+/.test(val)) {
+    return '"' + val.replace(/\+/g, " ") + '"';
+  } else if (/#/.test(val)) {
+    return val.replace(/#/g, "-");
+  }
 }

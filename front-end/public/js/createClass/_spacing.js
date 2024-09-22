@@ -13,17 +13,17 @@ export const spacingClasses = (classParts = [], className = "") => {
   const type = classParts[0].split("_").at(-1);
   const valParts = classParts.at(-1).split("_");
 
-  if (valParts.length === 2) {
-    addValueToPropNVals(properties, vals, [propName, `${processValuePart(valParts.at(0), null, true)} ${processValuePart(valParts.at(-1), null, true)}`]);
+  if (valParts.length === 2 && valParts[1] !== "imp") {
+    addValueToPropNVals(properties, vals, [propName, `${processValuePart(valParts.at(0))} ${processValuePart(valParts.at(-1))}`]);
   } else {
     if (/^(r|x|p|m)/.test(type)) {
-      addValueToPropNVals(properties, vals, [propName + "-right", processValuePart(classParts.at(-1), null, true)]);
+      addValueToPropNVals(properties, vals, [propName + "-right", processValuePart(classParts.at(-1))]);
     } if (/^(l|x|p|m)/.test(type)) {
-      addValueToPropNVals(properties, vals, [propName + "-left", processValuePart(classParts.at(-1), null, true)]);
+      addValueToPropNVals(properties, vals, [propName + "-left", processValuePart(classParts.at(-1))]);
     } if (/^(t|y|p|m)/.test(type)) {
-      addValueToPropNVals(properties, vals, [propName + "-top", processValuePart(classParts.at(-1), null, true)]);
+      addValueToPropNVals(properties, vals, [propName + "-top", processValuePart(classParts.at(-1))]);
     } if (/^(b|y|p|m)/.test(type)) {
-      addValueToPropNVals(properties, vals, [propName + "-bottom", processValuePart(classParts.at(-1), null, true)]);
+      addValueToPropNVals(properties, vals, [propName + "-bottom", processValuePart(classParts.at(-1))]);
     }
   }
 

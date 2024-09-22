@@ -6,7 +6,7 @@ export const sizeClasses = (className = "", classParts = []) => {
   // [max/min]_[wd/ht/size]-xxl-[10/10(rem/vh/vw/px)]_imp => add @query rule along with the class
   // [max/min]_[wd/ht/size]-[max/min]_xxl-[10/10(rem/vh/vw/px)]_imp => add @query rule along with the class
 
-  const val = processValuePart(classParts.at(-1), null, true);
+  const val = processValuePart(classParts.at(-1));
   const properties = [];
   const vals = [];
 

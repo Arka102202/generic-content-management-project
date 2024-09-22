@@ -3,11 +3,11 @@ import { addValueToPropNVals, getClassDefinition, getCompleteClassDefinition, pr
 
 export const borderCLasses = (classParts = [], className = "") => {
 
-  //  border_[t/r/b/l]-[max/min]_{breakpoint}-{wd_val_st_val_clr_val}
+  //  border_[t/r/b/l]-[max/min]_{breakpoint}-{wd:val&st:va&clr:val}
   //  border_[t/r/b/l]_[wd/st/clr/off]-[max/min]_{breakpoint}-value
   //  border_rad_[tr/br/bl/tl]_[max/min]_{breakpoint}-value
 
-  //  outline_[t/r/b/l]-[max/min]_{breakpoint}-{wd_val_st_val_clr_val_off_val}
+  //  outline_[t/r/b/l]-[max/min]_{breakpoint}-{wd:val&st:va&clr:val&off:val}
   //  outline_[t/r/b/l]_[wd/st/clr/off]-[max/min]_{breakpoint}-value
 
   const properties = [];
@@ -29,43 +29,54 @@ export const borderCLasses = (classParts = [], className = "") => {
     if (propType === "clr") {
       addValueToPropNVals(properties, vals, [propName1st + directions[propDir] + "-color", processValuePart(valPart, colors)]);
     } else if (propType === "wd") {
-      addValueToPropNVals(properties, vals, [propName1st + directions[propDir] + "-width", processValuePart(valPart, null, true)]);
+      addValueToPropNVals(properties, vals, [propName1st + directions[propDir] + "-width", processValuePart(valPart)]);
     } else if (propType === "st") {
       addValueToPropNVals(properties, vals, [propName1st + directions[propDir] + "-style", processValuePart(valPart)]);
     } else if (propType === "off") {
-      addValueToPropNVals(properties, vals, [propName1st + directions[propDir] + "-offset", processValuePart(valPart, null, true)]);
+      addValueToPropNVals(properties, vals, [propName1st + directions[propDir] + "-offset", processValuePart(valPart)]);
     }
-  } else {
-
-    const regexAll = /(?<=clr_)(?<clr>[^_]+)|(?<=wd_)(?<wd>[^_]+)|(?<=st_)(?<st>[^_]+)|(?<=off_)(?<off>[^_]+)/g;
-
-    let match, clr = "#fff", wd = "1px", st = "solid", off;
-
-    while ((match = regexAll.exec(valPart)) !== null) {
-      if (match.groups.clr) clr = processValuePart(match.groups.clr, colors);
-      if (match.groups.wd) wd = processValuePart(match.groups.wd, null, true);
-      if (match.groups.st) st = processValuePart(match.groups.st)
-      if (match.groups.off) off = processValuePart(match.groups.off, null, true)
-    }
-
-    addValueToPropNVals(properties, vals, [propName1st + directions[propDir], `${wd} ${st} ${clr} ${propName1st === "outline" ? off : ""}`]);
-  }
-
-  if (/^border_rad/.test(className)) {
+  } else if (/^border_rad/.test(classParts[0])) {
     const radDir = class1stParts.length === 3 ? class1stParts.at(2) : "";
 
     if (radDir === "tr") {
-      addValueToPropNVals(properties, vals, ["border-top-right-radius", processValuePart(valPart, null, true)]);
+      addValueToPropNVals(properties, vals, ["border-top-right-radius", processValuePart(valPart)]);
     } else if (radDir === "br") {
-      addValueToPropNVals(properties, vals, ["border-bottom-right-radius", processValuePart(valPart, null, true)]);
+      addValueToPropNVals(properties, vals, ["border-bottom-right-radius", processValuePart(valPart)]);
     } else if (radDir === "bl") {
-      addValueToPropNVals(properties, vals, ["border-bottom-left-radius", processValuePart(valPart, null, true)]);
+      addValueToPropNVals(properties, vals, ["border-bottom-left-radius", processValuePart(valPart)]);
     } else if (radDir === "tl") {
-      addValueToPropNVals(properties, vals, ["border-top-left-radius", processValuePart(valPart, null, true)]);
+      addValueToPropNVals(properties, vals, ["border-top-left-radius", processValuePart(valPart)]);
     } else {
-      addValueToPropNVals(properties, vals, ["border-radius", processValuePart(valPart, null, true)]);
+      addValueToPropNVals(properties, vals, ["border-radius", processValuePart(valPart)]);
     }
+  } else {
+
+    let clr = "#fff", wd = "1px", st = "solid", off;
+
+    const valParts = valPart.split("&");
+
+    valParts.forEach(el => {
+      const elParts = el.split(":");
+      const prop = elParts[0];
+      const value = elParts[1];
+
+      if (prop === "clr") {
+        clr = processValuePart(value, colors);
+      } else if (prop === "wd") {
+        wd = processValuePart(value);
+      } else if (prop === "st") {
+        st = processValuePart(value);
+      } else if (prop === "off") {
+        off = processValuePart(value);
+      }
+    })
+
+
+    addValueToPropNVals(properties, vals, [propName1st + directions[propDir], `${wd} ${st} ${clr}`]);
+    off && addValueToPropNVals(properties, vals, [propName1st + "-offset", off]);
   }
+
+
 
   const classToBuild = getClassDefinition(properties, vals, className);
   return getCompleteClassDefinition(2, classToBuild, classParts);
@@ -74,7 +85,7 @@ export const borderCLasses = (classParts = [], className = "") => {
 
 export const ringClasses = (classParts = [], className = "") => {
 
-  //  ring_[t/r/b/l]-[max/min]_{breakpoint}-[wd_value_clr_value] ==> using shadow
+  //  ring_[t/r/b/l]-[max/min]_{breakpoint}-[wd:val&clr:val] ==> using shadow
 
   const properties = [];
   const vals = [];
@@ -86,30 +97,32 @@ export const ringClasses = (classParts = [], className = "") => {
 
   const valPart = classParts.at(-1);
 
-  const regexAll = /(?<=clr_)(?<clr>[^_]+)|(?<=wd_)(?<wd>[^_]+)/g;
-
   let clr = "#fff", wd = "1px";
 
-  let match;
+  const valParts = valPart.split("&");
 
-  while ((match = regexAll.exec(valPart)) !== null) {
-    if (match.groups.clr) {
-      clr = match.groups.clr;
-    } if (match.groups.wd) {
-      wd = match.groups.wd;
+  valParts.forEach(el => {
+    const elParts = el.split(":");
+    const prop = elParts[0];
+    const value = elParts[1];
+
+    if (prop === "clr") {
+      clr = processValuePart(value, colors);
+    } else if (prop === "wd") {
+      wd = processValuePart(value);
     }
-  }
+  })
 
   if (propDir === "t") {
-    addValueToPropNVals(properties, vals, ["box-shadow", `inset 0 ${processValuePart(wd, null, true)} 0 ${processValuePart(clr, colors)}`]);
+    addValueToPropNVals(properties, vals, ["box-shadow", `inset 0 ${processValuePart(wd)} 0 ${processValuePart(clr, colors)}`]);
   } else if (propDir === "r") {
-    addValueToPropNVals(properties, vals, ["box-shadow", `inset -${processValuePart(wd, null, true)} 0 0 ${processValuePart(clr, colors)}`]);
+    addValueToPropNVals(properties, vals, ["box-shadow", `inset -${processValuePart(wd)} 0 0 ${processValuePart(clr, colors)}`]);
   } else if (propDir === "b") {
-    addValueToPropNVals(properties, vals, ["box-shadow", `inset 0 -${processValuePart(wd, null, true)} 0 ${processValuePart(clr, colors)}`]);
+    addValueToPropNVals(properties, vals, ["box-shadow", `inset 0 -${processValuePart(wd)} 0 ${processValuePart(clr, colors)}`]);
   } else if (propDir === "l") {
-    addValueToPropNVals(properties, vals, ["box-shadow", `inset ${processValuePart(wd, null, true)} 0 0 ${processValuePart(clr, colors)}`]);
+    addValueToPropNVals(properties, vals, ["box-shadow", `inset ${processValuePart(wd)} 0 0 ${processValuePart(clr, colors)}`]);
   } else {
-    addValueToPropNVals(properties, vals, ["box-shadow", `inset 0 0 0 ${processValuePart(wd, null, true)} ${processValuePart(clr, colors)}`]);
+    addValueToPropNVals(properties, vals, ["box-shadow", `inset 0 0 0 ${processValuePart(wd)} ${processValuePart(clr, colors)}`]);
   }
 
   const classToBuild = getClassDefinition(properties, vals, className);
