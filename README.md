@@ -11,16 +11,15 @@ This template project serves as a versatile foundation, ideal for various applic
 - listing new products
 - Gathering different information using form and sending sms, email in response
   
-
 The project is built using a cutting-edge tech stack to ensure efficiency, flexibility, and maintainability:
 
--   Backend: NodeJS for a robust and scalable server environment
--   Frontend: ReactJS for a dynamic and responsive user interface
--   Databases: MySQL or MongoDB to cater to different data management needs
+- Backend: NodeJS for a robust and scalable server environment
+- Frontend: ReactJS for a dynamic and responsive user interface
+- Databases: MySQL or MongoDB to cater to different data management needs
 
     With this modern approach, the project aims to deliver a state-of-the-art website that meets contemporary standards and user expectations.
 
-## Detail information about different pages of the website:
+## Detail information about different pages of the website
 
 The website will have the following pages:
 
@@ -68,7 +67,8 @@ Site root URL = `xyz.com`
         profileImg: "link to the URL",
     }
   ```
-- `BLOG`: 
+
+- `BLOG`:
   
   ```js
 
@@ -89,7 +89,8 @@ Site root URL = `xyz.com`
         publishedDate: 20240517000000,
     }
   ```
-- `EVENT`: 
+
+- `EVENT`:
   
   ```js
 
@@ -109,7 +110,8 @@ Site root URL = `xyz.com`
         eventDate: 20240517000000,
     }
   ```
-- `CMS`: 
+
+- `CMS`:
   
   ```js
 
@@ -143,8 +145,7 @@ Site root URL = `xyz.com`
 
   ```
 
-
-- `GALLERY`: 
+- `GALLERY`:
   
   ```js
 
@@ -159,4 +160,3 @@ Site root URL = `xyz.com`
         name: "display name",
     }
   ```
-
