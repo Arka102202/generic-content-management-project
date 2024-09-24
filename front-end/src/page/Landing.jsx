@@ -25,7 +25,7 @@ const Landing = () => {
             </div>
 
             <div className='wd-vMainWidth m-auto'>
-                <div className={`wd-l-80 d-grid_c_c grid-col_vFirstCol_30rem_50`} onClick={onClick}>
+                <div className={`wd-l-80 grid-col_vFirstCol_30rem_50`} onClick={onClick}>
                     <div className={`order-${orders[0]} grid-col_span_vSpanVal`}>arka</div>
                     <div className={`order-${orders[1]}`}>Buiiii</div>
                     <div className={`order-${orders[2]}`}>Choto buiii</div>

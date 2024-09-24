@@ -44,7 +44,7 @@ export const addValueToPropNVals = (properties = [], vals = [], valsToAdd = [], 
 }
 
 
-export const processValuePart = (val = "", mappingObj = null, breakWordWithDash = false, isFontName = false, breakWord = false) => {
+export const processValuePart = (val = "", mappingObj = null, breakWordWithDash = false, isFontName = false, breakWord = false, breakWordWithSpace = false) => {
 
   const impString = /_imp$/.test(val) ? " !important" : "";
   val = val.replace(/_imp$/, "");
@@ -53,15 +53,18 @@ export const processValuePart = (val = "", mappingObj = null, breakWordWithDash 
   if (mappingObj) result = mappingObj[val];
 
   if (!result) {
-    if (/^v/.test(val)) {
-      return `var(-${val.replace(/^v/, "").replace(/[A-Z]/g, match => '-' + match.toLowerCase())})${impString}`;
-    } else if (breakWordWithDash) {
-      return val.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`) + impString;
-    } else if (breakWord) {
-      return val.replace(/[A-Z]/g, (match) => ` ${match.toLowerCase()}`) + impString;
+
+    const newVal = val
+      .replace(/p(\d+)/g, "-$1")
+      .replace("+", " ")
+      .replace(/[A-Z]/g, match => '-' + match.toLowerCase());
+
+
+    if (/^v/.test(newVal)) {
+      return `var(-${newVal.replace(/^v/, "").replace(/[A-Z]/g, match => '-' + match.toLowerCase())})${impString}`;
     } else if (isFontName) {
-      return formatFontName(val) + impString;
-    } else return val + impString;
+      return formatFontName(newVal) + impString;
+    } else return newVal + impString;
 
   }
 

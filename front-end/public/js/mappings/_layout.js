@@ -41,14 +41,3 @@ export const overflow = {
   "hidden": "hidden",
   "scroll": "scroll"
 }
-
-export const sides = {
-  t: "top",
-  r: "right",
-  b: "bottom",
-  l: "left",
-  top: "top",
-  right: "right",
-  bottom: "bottom",
-  left: "left"
-}
