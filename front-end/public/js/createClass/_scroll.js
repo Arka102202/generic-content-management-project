@@ -1,4 +1,4 @@
-import { scrollSnapType } from "../mappings/_scroll.js";
+
 import { addValueToPropNVals, getClassDefinition, getCompleteClassDefinition, getPseudoElementDefinition, processValuePart } from "./_generic.js";
 
 export const scrollClasses = (classParts = [], className = "") => {
@@ -113,7 +113,7 @@ export const scrollClasses = (classParts = [], className = "") => {
         const tempValue = elParts[1];
 
         if (propType === "type") {
-          addValueToPropNVals(properties, vals, ["scroll-snap-type", processValuePart(tempValue, scrollSnapType)]);
+          addValueToPropNVals(properties, vals, ["scroll-snap-type", processValuePart(tempValue)]);
         } else if (propType === "align") {
           addValueToPropNVals(properties, vals, ["scroll-snap-align", processValuePart(tempValue, null, false, false, true)]);
         } else if (propType === "stop") {
@@ -127,7 +127,7 @@ export const scrollClasses = (classParts = [], className = "") => {
     } else if (class1stParts.length === 3) {
       const propType = class1stParts[2];
       if (propType === "type") {
-        addValueToPropNVals(properties, vals, ["scroll-snap-type", processValuePart(value, scrollSnapType)]);
+        addValueToPropNVals(properties, vals, ["scroll-snap-type", processValuePart(value)]);
       } else if (propType === "align") {
         addValueToPropNVals(properties, vals, ["scroll-snap-align", processValuePart(value, null, false, false, true)]);
       } else if (propType === "stop") {
