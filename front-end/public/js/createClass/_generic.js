@@ -44,7 +44,7 @@ export const addValueToPropNVals = (properties = [], vals = [], valsToAdd = [], 
 }
 
 
-export const processValuePart = (val = "", mappingObj = null, breakWordWithDash = false, isFontName = false, breakWord = false, breakWordWithSpace = false) => {
+export const processValuePart = (val = "", mappingObj = null, isFontName = false) => {
 
   const impString = /_imp$/.test(val) ? " !important" : "";
   val = val.replace(/_imp$/, "");
@@ -54,11 +54,13 @@ export const processValuePart = (val = "", mappingObj = null, breakWordWithDash 
 
   if (!result) {
 
-    const newVal = val
-      .replace(/p(\d+)/g, "-$1")
-      .replace("+", " ")
-      .replace(/[A-Z]/g, match => '-' + match.toLowerCase());
-
+    let newVal = val;
+    if (!isFontName) {
+      newVal = val
+        .replace(/p(\d+)/g, "-$1")
+        .replace("+", " ")
+        .replace(/[A-Z]/g, match => '-' + match.toLowerCase());
+    }
 
     if (/^v/.test(newVal)) {
       return `var(-${newVal.replace(/^v/, "").replace(/[A-Z]/g, match => '-' + match.toLowerCase())})${impString}`;
@@ -76,5 +78,5 @@ const formatFontName = (val = "") => {
     return '"' + val.replace(/\+/g, " ") + '"';
   } else if (/#/.test(val)) {
     return val.replace(/#/g, "-");
-  }
+  } else return val;
 }

@@ -23,11 +23,11 @@ export const layoutClasses = (classParts = [], className = "") => {
         addValueToPropNVals(properties, vals, ["display", processValuePart(el)]);
         type = el;
       } else if (prop === "flexDir") {
-        addValueToPropNVals(properties, vals, ["flex-direction", processValuePart(value, null, true)]);
+        addValueToPropNVals(properties, vals, ["flex-direction", processValuePart(value)]);
       } else if (prop === "justify") {
-        addValueToPropNVals(properties, vals, [`justify-${type === "flex" ? "content" : "items"}`, processValuePart(value, null, true)]);
+        addValueToPropNVals(properties, vals, [`justify-${type === "flex" ? "content" : "items"}`, processValuePart(value)]);
       } else if (prop === "align") {
-        addValueToPropNVals(properties, vals, ["align-items", processValuePart(value, null, true)]);
+        addValueToPropNVals(properties, vals, ["align-items", processValuePart(value)]);
       } else if (prop === "gap") {
         addValueToPropNVals(properties, vals, ["gap", processValuePart(value)]);
       }
