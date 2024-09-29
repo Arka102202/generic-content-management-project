@@ -132,12 +132,12 @@ export const opacityClasses = (classParts = [], className = "") => {
 
 export const shadowClasses = (classParts = [], className = "") => {
 
-  // shadow-[max/min]_{breakpoint}-value
+  // [txt_]shadow-[max/min]_{breakpoint}-value
 
   const values = classParts.at(-1).split("_");
   const val = values.map(el => processValuePart(el)).join(" ");
 
-  const classToBuild = getClassDefinition(["box-shadow"], [val], className);
+  const classToBuild = getClassDefinition([classParts[0] === "shadow" ? "box-shadow" : "text-shadow"], [val], className);
   return getCompleteClassDefinition(2, classToBuild, classParts);
 }
 
@@ -154,6 +154,27 @@ export const textGradClasses = (classParts = [], className = "") => {
 
 
   const classToBuild = getClassDefinition(properties, vals, className);
+  return getCompleteClassDefinition(2, classToBuild, classParts);
+
+}
+
+export const backFaceClass = (classParts = [], className = "") => {
+
+  // backface_visibility-[max/min]_{breakpoint}-value
+
+
+  const classToBuild = getClassDefinition(["backface-visibility"], [processValuePart(classParts.at(-1))], className);
+  return getCompleteClassDefinition(2, classToBuild, classParts);
+
+}
+
+
+export const content_visibilityClass = (classParts = [], className = "") => {
+
+  // content_visibility-[max/min]_{breakpoint}-value
+
+
+  const classToBuild = getClassDefinition(["content-visibility"], [processValuePart(classParts.at(-1))], className);
   return getCompleteClassDefinition(2, classToBuild, classParts);
 
 }
